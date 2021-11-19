@@ -1,0 +1,29 @@
+skillMetadata:
+  sections:
+    - name: Configuration
+      fields:
+        - name: username
+          type: text
+          label: Ring username
+          value: ""
+        - name: password
+          type: password
+          label: Ring password
+          value: ""
+        - name: 2fa_enabled
+          type: checkbox
+          label: Enable Ring Two-Factor Authentication (2FA)
+          value: "false"
+        - name: 2fa_code
+          type: text
+          label: Ring 2FA code (only if 2FA is enabled)
+          value: ""
+    - name: Doorbell Sound
+      fields:
+        - type: label
+          label: "Choose the sound to play when a ding is detected.<p><br/>Previews:<p/><ul><h4>Classic doorbell</h4><audio controls><source src='https://github.com/smartgic/mycroft-ring-skill/raw/21.2.1/assets/doorbell_1.mp3' type='audio/mpeg'></audio><h4>Two tones doorbell</h4><audio controls><source src='https://github.com/smartgic/mycroft-ring-skill/raw/21.2.1/assets/doorbell_2.mp3' type='audio/mpeg'></audio><h4>Old doorbell</h4><audio controls><source src='https://github.com/smartgic/mycroft-ring-skill/raw/21.2.1/assets/doorbell_3.mp3' type='audio/mpeg'></audio></ul>"
+        - name: ding_sound
+          type: select
+          label: Selection
+          options: "Classic doorbell|doorbell_1.mp3;Two tones doorbell|doorbell_2.mp3;Old doorbell|doorbell_3.mp3"
+          value: "doorbell_1.mp3"
