@@ -13,7 +13,7 @@ Retrieve alerts from Ring devices such as the Doorbell, Chime, Camera.
 
 [Ring](https://www.ring.com) is the company behind the smart doorbell that contains a high-definition camera, a motion sensor, and a microphone and speaker for two-way audio communication.
 
-This skill will allows Mycroft to notify you someone is at your front door.
+This skill allows Mycroft to notify you if someone at your front door.
 
 ## Examples
 
