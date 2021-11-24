@@ -1,21 +1,20 @@
 """Ring entrypoint skill
 """
 from datetime import datetime
-from mycroft import intent_handler
-from mycroft.skills.common_play_skill import CommonPlaySkill
+from mycroft import MycroftSkill, intent_handler
+from mycroft.util import play_mp3
 from .utils import authenticate, discovery
-from .constants import DING_INTERVAL, DING_AUDIO_INTERVAL, AUDIO_MIME_TYPE
+from .constants import DING_INTERVAL
 from os.path import join, dirname
-from time import sleep
 
 
-class Ring(CommonPlaySkill):
+class Ring(MycroftSkill):
     """This is the place where all the magic happens for the Ring skill.
     """
     def __init__(self):
         """Constructor method
         """
-        CommonPlaySkill.__init__(self)
+        MycroftSkill.__init__(self)
 
         # Initialize variables with empty or None values
         self.ring = None
@@ -92,25 +91,13 @@ class Ring(CommonPlaySkill):
                     for alert in ring.active_alerts():
                         if alert['kind'] == 'ding':
                             self.log.info("ding detected")
-                            self.CPS_play((f'file://{ding_sound}',
-                                           AUDIO_MIME_TYPE))
-                            sleep(DING_AUDIO_INTERVAL)
+                            play_mp3(ding_sound).wait()
                             self.speak_dialog('ring.ding')
                             return
                 except Exception as err:
                     self.log.error(err)
                     return
             return
-
-    def CPS_start(self):
-        """Required by https://bit.ly/2Z2f0G6
-        """
-        pass
-
-    def CPS_match_query_phrase(self):
-        """Required by https://bit.ly/2Z2f0G6
-        """
-        pass
 
 
 def create_skill():

@@ -11,9 +11,3 @@ USER_AGENT = 'MycroftAI/1.0'
 
 # Interval in seconds to check for dings alerts
 DING_INTERVAL = 5
-
-# Interval in seconds to wait before the speak dialog
-DING_AUDIO_INTERVAL = 3
-
-# Mime type of the doorbell sound files
-AUDIO_MIME_TYPE = 'audio/mpeg'
