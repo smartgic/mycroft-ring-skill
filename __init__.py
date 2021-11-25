@@ -67,7 +67,7 @@ class Ring(MycroftSkill):
         # Because infinite loop will freeze the skill service, we  need
         # to schedule an event every DING_INTERVAL seconds.
         # https://bit.ly/3FCwFEd
-        self.schedule_repeating_event(self._get__get_alerts, datetime.now(),
+        self.schedule_repeating_event(self._get_alerts, datetime.now(),
                                       ALERTS_INTERVAL)
 
     def _get_alerts(self):
