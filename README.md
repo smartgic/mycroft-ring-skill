@@ -13,18 +13,17 @@ Retrieve alerts from Ring devices such as the Doorbell, Chime, Camera.
 
 [Ring](https://www.ring.com) is the company behind the smart doorbell that contains a high-definition camera, a motion sensor, and a microphone and speaker for two-way audio communication.
 
-This skill allows Mycroft to notify you if someone at your front door.
+This skill allows Mycroft to notify you if someone is at your front door, if a motion is detectd or if someone request for a live preview.
 
 ## Examples
 
 * "discover my ring devices"
 
-
 ## Installation
 
 Make sure to be within the Mycroft `virtualenv` before running the `msm` command.
 
-```
+```shell
 $ . mycroft-core/venv-activate.sh
 $ msm install https://github.com/smartgic/mycroft-ring-skill.git
 ```
@@ -35,8 +34,17 @@ This skill utilizes the `settings.json` file which allows you to configure this 
 
 <img src='docs/ring-config.png' width='450'/>
 
-Fill this out with your appropriate information and hit the `save` button.
+If the two-factor authentication *(2FA)* is enabled on your Ring account, make sure to check the `Enable Ring Two-Factor Authentication (2FA)` box. Then from the Ring application on your phone, generate a one-time password *(OTP)* by following these steps:
 
+<img src='docs/ring_app_1.png' width='450'/>
+
+<img src='docs/ring_app_2.png' width='450'/>
+
+<img src='docs/ring_app_3.png' width='450'/>
+
+<img src='docs/ring_app_4.png' width='450'/>
+
+Fill this out with your appropriate information and hit the `save` button.
 
 ## Credits
 
