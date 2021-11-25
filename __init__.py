@@ -112,7 +112,7 @@ class Ring(MycroftSkill):
                         elif alert['kind'] == 'on_demand':
                             if self.on_demand:
                                 self.log.info("on-demand alert detected")
-                                self.speak_dialog('ring.on_demand', data={
+                                self.speak_dialog('ring.ondemand', data={
                                     'device': alert['doorbot_description']})
                                 return
                 except Exception as err:
