@@ -4,7 +4,7 @@ from datetime import datetime
 from mycroft import MycroftSkill, intent_handler
 from mycroft.util import play_mp3
 from .utils import authenticate, discovery
-from .constants import DING_INTERVAL
+from .constants import ALERTS_INTERVAL
 from os.path import join, dirname
 
 
@@ -29,6 +29,9 @@ class Ring(MycroftSkill):
         self.two_factor_status = self.settings.get('2fa_enabled')
         self.two_factor_code = self.settings.get('2fa_code')
         self.ding_sound = self.settings.get('ding_sound', 'doorbell_1.mp3')
+        self.ding_alerts = self.settings.get('enable_ding')
+        self.motion_alerts = self.settings.get('enable_motion')
+        self.on_demand = self.settings.get('enable_on_demand')
 
     @intent_handler('ring.discovery.intent')
     def _handle_device_discovery(self):
@@ -64,20 +67,24 @@ class Ring(MycroftSkill):
         # Because infinite loop will freeze the skill service, we  need
         # to schedule an event every DING_INTERVAL seconds.
         # https://bit.ly/3FCwFEd
-        self.schedule_repeating_event(self._get_dings, datetime.now(),
-                                      DING_INTERVAL)
+        self.schedule_repeating_event(self._get__get_alerts, datetime.now(),
+                                      ALERTS_INTERVAL)
 
-    def _get_dings(self):
-        """Checks for active alerts, if an alert is detected and the type is
-        "ding" then a sound will be played as well as a speak dialog message.
+    def _get_alerts(self):
+        """Checks for active alerts on the devices.
+
+        If an alert is detected and the type is "ding" then a sound will be
+        played as well as a speak dialog message.
+
+        If an alert is detected and the type is "motion" then a speak dialog
+        message will be played.
+
+        If an alert is detected and the type is "on_demand" then a speak dialog
+        message will be played.
 
         This method is only triggered by a scheduled event
         (cf. on_settings_changed() method from above) and should NEVER be
         called directly.
-
-        The method uses the CommonPlaySkill implementation to leveragethe
-        audio backend system.
-        https://bit.ly/2Z2f0G6
 
         :raises Exception: Raise Exception
         """
@@ -90,10 +97,24 @@ class Ring(MycroftSkill):
                 try:
                     for alert in ring.active_alerts():
                         if alert['kind'] == 'ding':
-                            self.log.info("ding detected")
-                            play_mp3(ding_sound).wait()
-                            self.speak_dialog('ring.ding')
-                            return
+                            if self.ding_alerts:
+                                self.log.info("ding alert detected")
+                                play_mp3(ding_sound).wait()
+                                self.speak_dialog('ring.ding', data={
+                                    'device': alert['doorbot_description']})
+                                return
+                        elif alert['kind'] == 'motion':
+                            if self.motion_alerts:
+                                self.log.info("motion alert detected")
+                                self.speak_dialog('ring.motion', data={
+                                    'device': alert['doorbot_description']})
+                                return
+                        elif alert['kind'] == 'on_demand':
+                            if self.on_demand:
+                                self.log.info("on-demand alert detected")
+                                self.speak_dialog('ring.on_demand', data={
+                                    'device': alert['doorbot_description']})
+                                return
                 except Exception as err:
                     self.log.error(err)
                     return

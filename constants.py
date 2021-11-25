@@ -9,5 +9,5 @@ TOKEN_CACHE_FILE = f'{TOKEN_CACHE_DIR}/token_cache.json'
 # User agent used by the skill to speak wtih Ring API
 USER_AGENT = 'MycroftAI/1.0'
 
-# Interval in seconds to check for dings alerts
-DING_INTERVAL = 5
+# Interval in seconds to check for alerts
+ALERTS_INTERVAL = 5

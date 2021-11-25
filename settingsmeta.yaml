@@ -1,6 +1,6 @@
 skillMetadata:
   sections:
-    - name: Configuration
+    - name: Authentification
       fields:
         - name: username
           type: text
@@ -18,6 +18,20 @@ skillMetadata:
           type: text
           label: Ring 2FA code (only if 2FA is enabled)
           value: ""
+    - name: Notifications
+      fields:
+        - name: enable_ding
+          type: checkbox
+          label: Receive notification when someone press the button
+          value: "true"
+        - name: enable_motion
+          type: checkbox
+          label: Receive notification when motion is detected
+          value: "false"
+        - name: enable_on_demand
+          type: checkbox
+          label: Receive notification when someone is live
+          value: "false"
     - name: Doorbell Sound
       fields:
         - type: label
