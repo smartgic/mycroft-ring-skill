@@ -12,4 +12,4 @@ python:
   - "3.9"
   - "3.10"
 script:
-  - pep8 __init__.py
+  - pep8 __init__.py utils.py
