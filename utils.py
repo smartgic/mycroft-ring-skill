@@ -16,7 +16,7 @@ def _token_cache_update(token):
     """Handle the token_cache.json file creation which contains the token
     and the refresh token.
 
-    The token_cache_file file is created after the first successful 
+    The token_cache_file file is created after the first successful
     authentication fromusername and password (and 2FA if enabled). This file
     prevent to re-authenticate at every API call performed by the Python
     ring_doorbell library.
