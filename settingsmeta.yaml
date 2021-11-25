@@ -30,7 +30,7 @@ skillMetadata:
           value: "false"
         - name: enable_on_demand
           type: checkbox
-          label: Receive notification when someone is live
+          label: Receive notification when someone request a live view
           value: "false"
     - name: Doorbell Sound
       fields:
