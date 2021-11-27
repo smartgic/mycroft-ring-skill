@@ -18,6 +18,7 @@ This skill allows Mycroft to notify you if someone is at your front door, if a m
 ## Examples
 
 * "discover my ring devices"
+* "give me information about front door device"
 
 ## Installation
 

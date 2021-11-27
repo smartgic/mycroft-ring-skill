@@ -95,12 +95,12 @@ def discovery(self):
         chimes = devices["chimes"]
         stickup_cams = devices["stickup_cams"]
 
-        # Make sure the device list is emtpty before the discovery.
-        self.devices = []
+        # Make sure the device dict is emtpty before the discovery.
+        self.devices = {}
 
         try:
             for device in doorbells + chimes + stickup_cams:
-                self.devices.append(device.name)
+                self.devices[device.name] = device.family
         except Exception as err:
             self.log.error(err)
 
@@ -110,3 +110,50 @@ def discovery(self):
         else:
             self.log.info(
                 '{} device(s) found'.format(len(self.devices)))
+
+
+def check_device(self, ring_device):
+    """Check if the device is part of the discovered devices.
+
+    :param device: Which device to looking for
+    :type device: string
+    :return: Device name
+    :rtype: str
+    :raises Exception: Raise Exception
+    """
+    try:
+        for device in self.devices:
+            if ring_device in self.devices:
+                return device
+    except Exception as err:
+        self.log.error(err)
+
+    self.log.warning('{} device not found'.format(ring_device))
+    self.speak_dialog('error.device', data={'device': ring_device})
+
+    return None
+
+
+def device_info(self, device):
+    """Retrieve Ring device information
+
+    :param device: Which device to retrieve information
+    :type speaker: string
+    :raises Exception: Raise Exception
+    """
+    try:
+        device = check_device(self, device)
+        if not device:
+            return None
+        ring = self.ring
+        ring.update_devices()
+        devices = ring.devices()
+        for info in devices[self.devices[device]]:
+            if device == info.name:
+                self.speak_dialog('ring.device.info', data={
+                                  'model': info.name,
+                                  'kind': info.model_number,
+                                  'firmware': info.kind.replace('_', ' '),
+                                  'battery': info.battery_life})
+    except Exception as err:
+        self.log.error(err)

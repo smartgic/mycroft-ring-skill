@@ -18,7 +18,7 @@ class Ring(MycroftSkill):
 
         # Initialize variables with empty or None values
         self.ring = None
-        self.devices = []
+        self.devices = {}
 
     def _setup(self):
         """Provision initialized variables and retrieve configuration
@@ -38,7 +38,7 @@ class Ring(MycroftSkill):
         """Handle the Ring devices discovery triggered by intents
         It's only used by the user to get the device names.
         """
-        if self.devices:
+        if len(self.devices) > 0:
             self.speak_dialog('ring.discovery', data={
                               'total': len(self.devices)})
             list_device = self.ask_yesno('ring.list')
@@ -92,7 +92,7 @@ class Ring(MycroftSkill):
             ring = self.ring
             ding_sound = join(dirname(__file__), 'assets', self.ding_sound)
 
-            ring.update_dings()
+            ring.update_data()
             if ring.active_alerts() != []:
                 try:
                     for alert in ring.active_alerts():
