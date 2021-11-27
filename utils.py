@@ -123,8 +123,6 @@ def check_device(self, ring_device):
     """
     try:
         for device in self.devices:
-            self.log.info(ring_device)
-            self.log.info(self.devices)
             if ring_device == device.lower():
                 return device
     except Exception as err:
@@ -154,7 +152,7 @@ def device_info(self, device):
             if device == info.name:
                 self.speak_dialog('ring.device.info', data={
                                   'model': info.name,
-                                  'kind': info.model_number,
+                                  'kind': info.model,
                                   'firmware': info.kind.replace('_', ' '),
                                   'battery': info.battery_life})
     except Exception as err:
