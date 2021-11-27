@@ -3,7 +3,7 @@
 from datetime import datetime
 from mycroft import MycroftSkill, intent_handler
 from mycroft.util import play_mp3
-from .utils import authenticate, discovery
+from .utils import authenticate, discovery, device_info
 from .constants import ALERTS_INTERVAL
 from os.path import join, dirname
 
@@ -45,6 +45,12 @@ class Ring(MycroftSkill):
             if list_device == 'yes':
                 for device in self.devices:
                     self.speak(device.lower())
+
+    @intent_handler('ring.device.info.intent')
+    def _handle_device_info(self, message):
+        """Handle the Ring devices information triggered by intents
+        """
+        device_info(self, message.data.get('device'))
 
     def initialize(self):
         """The initialize method is called after the Skill is fully
