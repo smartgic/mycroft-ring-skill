@@ -125,7 +125,7 @@ def check_device(self, ring_device):
         for device in self.devices:
             self.log.info(ring_device)
             self.log.info(self.devices)
-            if ring_device in self.devices.lower():
+            if ring_device == device.lower():
                 return device
     except Exception as err:
         self.log.error(err)
