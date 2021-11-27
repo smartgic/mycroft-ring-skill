@@ -151,9 +151,9 @@ def device_info(self, device):
         for info in devices[self.devices[device]]:
             if device == info.name:
                 self.speak_dialog('ring.device.info', data={
-                                  'model': info.name,
-                                  'kind': info.model,
-                                  'firmware': info.kind.replace('_', ' '),
+                                  'model': info.model,
+                                  'kind': info.kind.replace('_', ' '),
+                                  'firmware': info.firmware,
                                   'battery': info.battery_life})
     except Exception as err:
         self.log.error(err)
